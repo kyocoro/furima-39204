@@ -36,7 +36,6 @@
 
 ### Association
 
-- has_one :purchase
 - has_one :history
 - belongs_to :user
 - has_many :comments
@@ -55,7 +54,6 @@
 
 ### Association
 
-- belongs_to :item
 - belongs_to :history
 
 ## comments テーブル
@@ -80,8 +78,9 @@
 
 ### Association
 
-- has_many :purchases
+- has_one :purchases
 - belongs_to :item
+- belongs_to :user
 
 # README
 
