@@ -2,39 +2,43 @@
 
 ## users テーブル
 
-| Column   | Type   | Options     |
-| -------- | ------ | ----------- |
-| nickname | string | null: false |
-| email    | string | null: false |
-| password | string | null: false |
-| name     | string | null: false |
-| date     | string | null: false |
+| Column             | Type   | Options                   |
+| ------------------ | ------ | ------------------------- |
+| nickname           | string | null: false               |
+| email              | string | null: false, unique: true |
+| encrypted_password | string | null: false               |
+| lastname           | string | null: false               |
+| firstname          | string | null: false               |
+| lastname_k         | string | null: false               |
+| firstname_k        | string | null: false               |
+| birthday           | date   | null: false               |
 
 
 ### Association
 
 - has_many :items
 - has_many :purchases
+- has_many :histories
 - has_many :comments
 
 ## items テーブル
 
-| Column      | Type       | Options                        |
-| ----------- | ---------- | ------------------------------ |
-| image       | string     | null: false                    |
-| name        | string     | null: false                    |
-| explanation | string     | null: false                    |
-| category    | string     | null: false                    |
-| condition   | string     | null: false                    |
-| charge      | string     | null: false                    |
-| region      | string     | null: false                    |
-| days        | string     | null: false                    |
-| price       | string     | null: false                    |
-| user        | references | null: false, foreign_key: true |
+| Column       | Type       | Options                        |
+| ------------ | ---------- | ------------------------------ |
+| name         | string     | null: false                    |
+| explanation  | text       | null: false                    |
+| category_id  | integer    | null: false                    |
+| condition_id | integer    | null: false                    |
+| charge_id    | integer    | null: false                    |
+| region_id    | integer    | null: false                    |
+| days_id      | integer    | null: false                    |
+| price        | int        | null: false                    |
+| user         | references | null: false, foreign_key: true |
 
 ### Association
 
 - has_one :purchase
+- has_one :history
 - belongs_to :user
 - has_many :comments
 
@@ -53,6 +57,7 @@
 ### Association
 
 - belongs_to :item
+- belongs_to :history
 
 ## comments テーブル
 
@@ -66,6 +71,17 @@
 
 - belongs_to :room
 - belongs_to :user
+
+## histories テーブル
+
+| Column  | Type       | Options                        |
+| ------- | ---------- | ------------------------------ |
+| user    | references | null: false, foreign_key: true |
+
+### Association
+
+- has_one :purchase
+
 # README
 
 This README would normally document whatever steps are necessary to get the
