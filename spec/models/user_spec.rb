@@ -10,6 +10,9 @@ RSpec.describe User, type: :model do
       it 'nicknameとemail、passwordとpassword_confirmation、last_name、first_name、last_name_k、first_name_k、birthdayが存在すれば登録できる' do
         expect(@user).to be_valid
       end
+      it 'パスワードが半角英数混合であれば登録できる' do
+        expect(@user).to be_valid
+      end
     end
     context '新規登録できない場合' do
       it 'nicknameが空では登録できない' do
@@ -26,6 +29,16 @@ RSpec.describe User, type: :model do
         @user.password = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Password can't be blank")
+      end
+      it 'パスワードが英語のみでは登録できない' do
+        @user.password = 'abcdef'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('は半角英数を両方含む必要があります')
+      end
+      it 'パスワードが数字のみでは登録できない' do
+        @user.password = '123456'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('は半角英数を両方含む必要があります')
       end
       it 'last_nameが空では登録できない' do
         @user.last_name = ''
@@ -83,6 +96,33 @@ RSpec.describe User, type: :model do
         @user.email = 'testmail'
         @user.valid?
         expect(@user.errors.full_messages).to include('Email is invalid')
+      end
+       # 名前全角入力のテスト ▼
+
+       it 'last_nameが全角入力でなければ登録できないこと' do
+        user = build(:user, last_name: "ｱｲｳｴｵ") # 意図的に半角入力を行いエラーを発生させる
+        user.valid?
+        expect(user.errors[:last_name]).to include("は不正な値です")
+      end
+
+      it 'first_nameが全角入力でなければ登録できないこと' do
+        user = build(:user, first_name: "ｱｲｳｴｵ") # 意図的に半角入力を行いエラーを発生させる
+        user.valid?
+        expect(user.errors[:first_name]).to include("は不正な値です")
+      end
+
+      # カタカナ全角入力のテスト ▼
+
+      it 'last_name_kが全角カタカナでなければ登録できないこと' do
+        user = build(:user, last_name_k: "あいうえお") # 意図的にひらがな入力を行いエラーを発生させる
+        user.valid?
+        expect(user.errors[:last_name_k]).to include("は不正な値です")
+      end
+
+      it 'first_name_kanaが全角カタカナでなければ登録できないこと' do
+        user = build(:user, first_name_k: "あいうえお") # 意図的にひらがな入力を行いエラーを発生させる
+        user.valid?
+        expect(user.errors[:first_name_k]).to include("は不正な値です")
       end
     end
   end
