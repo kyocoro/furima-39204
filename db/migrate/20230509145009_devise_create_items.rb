@@ -3,14 +3,14 @@
 class DeviseCreateItems < ActiveRecord::Migration[6.0]
   def change
     create_table :items do |t|
-      t.string :name
-      t.text :explanation
-      t.integer :category_id
-      t.integer :condition_id
-      t.integer :charge_id
-      t.integer :region_id
-      t.integer :period_id
-      t.integer :price
+      t.string :name, null: false
+      t.text :explanation, null: false
+      t.integer :category_id, null: false
+      t.integer :condition_id, null: false
+      t.integer :charge_id, null: false
+      t.integer :region_id, null: false
+      t.integer :period_id, null: false
+      t.integer :price, null: false
       t.references :user, null: false, foreign_key: true
 
       ## Database authenticatable
