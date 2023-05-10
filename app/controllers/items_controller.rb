@@ -1,13 +1,18 @@
 class ItemsController < ApplicationController
   def index
-  end
-
-  def create
+    @items = Item.all
   end
 
   def new
+    @item = Item.new
   end
 
-  def show
+  def create
+    Item.create(item_params)
+  end
+
+  private
+  def item_params
+    params.require(:item).permit(:name, :explanation, :category_id, :condition_id, :charge_id, :region_id, :period_id, :price).merge(user_id: current_user.id)
   end
 end
