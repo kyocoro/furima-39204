@@ -5,6 +5,7 @@ class Item < ApplicationRecord
   belongs_to :charge
   belongs_to :region
   belongs_to :period
+  belongs_to :user
 
   #空の投稿を保存できないようにする
   validates :name, :explanation, presence: true
