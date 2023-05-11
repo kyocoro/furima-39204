@@ -3,10 +3,10 @@ FactoryBot.define do
     name         { 'test' }
     explanation  { 'test@example' }
     category_id  { 2 }
-    condition_id { 1 }
+    condition_id { 2 }
     charge_id    { 2 }
     region_id    { 10 }
-    period_id    { 1 }
+    period_id    { 2 }
     price        { "1000" }
 
     after(:build) do |message|

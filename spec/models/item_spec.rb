@@ -32,8 +32,18 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Category_id can't be blank")
       end
+      it 'category_idが---では登録できない' do
+        @item.category_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category_id can't be blank")
+      end
       it 'condition_idが空では登録できない' do
         @item.condition_id = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Condition_id can't be blank")
+      end
+      it 'condition_idが---では登録できない' do
+        @item.condition_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Condition_id can't be blank")
       end
@@ -42,13 +52,28 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Charge_id can't be blank")
       end
+      it 'charge_idが---では登録できない' do
+        @item.charge_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Charge_id can't be blank")
+      end
       it 'region_idが空では登録できない' do
         @item.region_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Region_id can't be blank")
       end
+      it 'region_idが---では登録できない' do
+        @item.region_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Region_id can't be blank")
+      end
       it 'period_idが空では登録できない' do
         @item.period_id = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Period_id can't be blank")
+      end
+      it 'period_idが---では登録できない' do
+        @item.period_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Period_id can't be blank")
       end
