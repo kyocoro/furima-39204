@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit]
-  
+  before_action :contributor_confirmation, only: [:edit, :update]
   
   def index
     @items = Item.all.order(created_at: :desc)
@@ -25,11 +25,7 @@ class ItemsController < ApplicationController
 
   def edit
     @item = Item.find(params[:id])
-    if current_user.id == @item.user_id
-      render "edit"
-    else
-      redirect_to root_path
-    end
+    
   end
 
   def update
@@ -55,4 +51,8 @@ class ItemsController < ApplicationController
     params.require(:item).permit(:image, :name, :explanation, :category_id, :condition_id, :charge_id, :region_id, :period_id, :price, :image).merge(user_id: current_user.id)
   end
 
+  def contributor_confirmation
+    @item = Item.find(params[:id])
+    redirect_to root_path unless current_user == @item.user
+  end
 end
