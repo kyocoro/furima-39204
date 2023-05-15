@@ -1,7 +1,12 @@
 class ItemsController < ApplicationController
   before_action :set_item, except: [:index, :new, :create]
+
+  before_action :authenticate_user!, only: [:new, :create, :edit, :destroy]
+  before_action :contributor_confirmation, only: [:edit, :update, :destroy]
+  
   before_action :authenticate_user!, only: [:new, :create, :edit]
   before_action :contributor_confirmation, only: [:edit, :update]
+
   
   def index
     @items = Item.all.order(created_at: :desc)
@@ -21,6 +26,11 @@ class ItemsController < ApplicationController
   end
 
   def show
+
+  end
+
+  def edit
+
     
   end
 
@@ -35,16 +45,24 @@ class ItemsController < ApplicationController
     else
       render :edit
     end
+
   end
 
-  #def destroy
-    #@item = Item.find(params[:id])
-    #if @item.destroy
-      #redirect_to root_path
-    #else
-      #redirect_to root_path
-    #end
-  #end
+  def update
+    if @item.update(item_params)
+      redirect_to item_path(@item)
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    if @item.destroy
+      redirect_to root_path
+    else
+      redirect_to root_path
+    end
+  end
 
   private
   def set_item
