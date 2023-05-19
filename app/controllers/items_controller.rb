@@ -4,9 +4,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :destroy]
   before_action :contributor_confirmation, only: [:edit, :update, :destroy]
   
-  before_action :authenticate_user!, only: [:new, :create, :edit]
-  before_action :contributor_confirmation, only: [:edit, :update]
-
+  
   
   def index
     @items = Item.all.order(created_at: :desc)
