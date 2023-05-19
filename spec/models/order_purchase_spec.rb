@@ -18,22 +18,6 @@ RSpec.describe OrderPurchase, type: :model do
     end
 
     context '内容に問題がある場合' do
-      it 'cardnumberが空だと保存できないこと' do
-        @order_purchase.cardnumber = ''
-        @order_purchase.valid?
-        expect(@order_purchase.errors.full_messages).to include("Cardnumber can't be blank")
-      end
-      it 'expirationが空だと保存できないこと' do
-        @order_purchase.expiration = ''
-        @order_purchase.valid?
-        expect(@order_purchase.errors.full_messages).to include("Expiration can't be blank")
-      end
-      
-      it 'securitycodeが空だと保存できないこと' do
-        @order_purchase.securitycode = ''
-        @order_purchase.valid?
-        expect(@order_purchase.errors.full_messages).to include("Securitycode can't be blank")
-      end
       it 'postcodeが空だと保存できないこと' do
         @order_purchase.postcode = ''
         @order_purchase.valid?
@@ -66,6 +50,11 @@ RSpec.describe OrderPurchase, type: :model do
       end
       it 'userが紐付いていないと保存できないこと' do
         @order_purchase.user_id = nil
+        @order_purchase.valid?
+        expect(@order_purchase.errors.full_messages).to include("User can't be blank")
+      end
+      it 'itemが紐付いていないと保存できないこと' do
+        @order_purchase.item_id = nil
         @order_purchase.valid?
         expect(@order_purchase.errors.full_messages).to include("User can't be blank")
       end

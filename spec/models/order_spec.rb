@@ -12,24 +12,6 @@ RSpec.describe Order, type: :model do
   end
 
   context '内容に問題がある場合' do
-    it "cardnumberが空では保存ができないこと" do
-      @order.cardnumber = nil
-      @order.valid?
-      expect(@order.errors.full_messages).to include("Cardnumber can't be blank")
-    end
-
-    it "expirationが空では登録できないこと" do
-      @order.expiration = nil
-      @order.valid?
-      expect(@order.errors.full_messages).to include("Expiration can't be blank")
-    end
-
-    it "securitycodeが空では登録できないこと" do
-      @order.securitycode = nil
-      @order.valid?
-      expect(@order.errors.full_messages).to include("Securitycode can't be blank")
-    end
-
     it "tokenが空では登録できないこと" do
       @order.token = nil
       @order.valid?

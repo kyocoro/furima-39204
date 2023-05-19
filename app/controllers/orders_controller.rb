@@ -13,7 +13,6 @@ class OrdersController < ApplicationController
   def create
     @item = Item.find(params[:item_id])
     @order_purchase = OrderPurchase.new(order_params)
-    binding.pry # 追記
     if @order_purchase.valid?
       pay_item
       @order_purchase.save
@@ -26,7 +25,7 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order_purchase).permit(:postcode, :region_id, :municipalities, :address, :building_name, :telephone).merge(token: params[:token])
+    params.require(:order_purchase).permit(:postcode, :region_id, :municipalities, :address, :building_name, :telephone).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
     #params.require(:order_purchase).permit(:cardnumber, :expiration, :securitycode).merge(token: params[:token])
   end
 
