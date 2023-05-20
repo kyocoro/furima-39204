@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!, except: :index
+  before_action :authenticate_user!, oniy: :index
   before_action :set_item, except: [:index, :create]
 
   def index
@@ -11,10 +11,7 @@ class OrdersController < ApplicationController
     else
       redirect_to root_path
     end
-    if user_signed_in?
-    else
-      redirect_to new_user_session_path
-    end
+    
   end
 
   def new
