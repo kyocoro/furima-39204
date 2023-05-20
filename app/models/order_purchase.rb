@@ -3,8 +3,11 @@ class OrderPurchase
   attr_accessor :item_id, :postcode, :region_id, :municipalities, :address, :building_name, :telephone, :user_id, :token
   
   with_options presence: true do
-    validates :postcode, presence: true, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
-
+    validates :postcode, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
+    validates :region_id
+    validates :municipalities
+    validates :address
+    validates :telephone, format: { with: /\A\d{10,11}\z/ }
   end
 
   def save
