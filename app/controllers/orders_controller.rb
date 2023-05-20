@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, oniy: :index
-  before_action :set_item, except: [:index, :create]
+  before_action :set_item, oniy: [:index, :create]
 
   def index
     @order_purchase = OrderPurchase.new
@@ -8,7 +8,7 @@ class OrdersController < ApplicationController
       redirect_to root_path
     end
     if user_signed_in? && current_user.id == @item.user_id
-    else
+    
       redirect_to root_path
     end
     
@@ -45,6 +45,6 @@ class OrdersController < ApplicationController
   end
 
   def set_item
-    @item = Item.find(params[:id])
+    @item = Item.find(params[:item_id])
   end
 end
