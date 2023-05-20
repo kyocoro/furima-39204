@@ -14,9 +14,7 @@ class OrdersController < ApplicationController
     
   end
 
-  def new
-    @order_purchase = OrderPurchase.new
-  end
+  
 
   def create
     @order_purchase = OrderPurchase.new(order_params)
