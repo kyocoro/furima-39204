@@ -50,7 +50,7 @@
 | address        | string     | null: false                    |
 | building_name  | string     |                                |
 | telephone      | string     | null: false                    |
-| user           | references | null: false, foreign_key: true |
+| order          | references | null: false, foreign_key: true |
 
 ### Association
 
@@ -69,7 +69,7 @@
 - belongs_to :item
 - belongs_to :user
 
-## histories テーブル
+## orders テーブル
 
 | Column  | Type       | Options                        |
 | ------- | ---------- | ------------------------------ |
@@ -78,7 +78,7 @@
 
 ### Association
 
-- has_one :purchases
+- has_one :purchase
 - belongs_to :item
 - belongs_to :user
 
