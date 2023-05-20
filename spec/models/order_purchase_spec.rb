@@ -28,8 +28,13 @@ RSpec.describe OrderPurchase, type: :model do
         @order_purchase.valid?
         expect(@order_purchase.errors.full_messages).to include('Postcode is invalid. Include hyphen(-)')
       end
-      it 'region_idを選択していないと保存できないこと' do
-        @order_purchase.region_id = 0
+      it 'region_idが空だと保存できないこと' do
+        @order_purchase.region_id = ''
+        @order_purchase.valid?
+        expect(@order_purchase.errors.full_messages).to include("Region_id can't be blank")
+      end
+      it 'region_idが---では登録できない' do
+        @order_purchase.region_id = 1
         @order_purchase.valid?
         expect(@order_purchase.errors.full_messages).to include("Region_id can't be blank")
       end

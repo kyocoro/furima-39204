@@ -10,6 +10,9 @@ class OrderPurchase
     validates :telephone, format: { with: /\A\d{10,11}\z/ }
   end
 
+  #ジャンルの選択が「---」の時は保存できないようにする
+  validates :region_id, numericality: { other_than: 1 , message: "can't be blank"}
+  
   def save
     order = Order.create(user_id: user_id, item_id: item_id)
     Purchase.create(postcode: postcode, region_id: region_id, municipalities: municipalities, address: address, building_name: building_name, telephone: telephone, order_id: order.id)
