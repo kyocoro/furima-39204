@@ -48,6 +48,21 @@ RSpec.describe OrderPurchase, type: :model do
         @order_purchase.valid?
         expect(@order_purchase.errors.full_messages).to include("Telephone can't be blank")
       end
+      it 'telephoneが9文字以下では登録できない' do
+        @order_purchase.telephone = '090123456'
+        @order_purchase.valid?
+        expect(@order_purchase.errors.full_messages).to include('Telephone is too short (minimum is 10 characters)')
+      end
+      it 'telephoneが12文字以上では登録できない' do
+        @order_purchase.telephone = '090123456789'
+        @order_purchase.valid?
+        expect(@order_purchase.errors.full_messages).to include('Telephone is too long (maximum is 11 characters)')
+      end
+      it 'telephoneが半角数字でないと出品できない' do
+        @order_purchase.telephone = '０９０１２３４５６７８'
+        @order_purchase.valid?
+        expect(@order_purchase.errors.full_messages).to include('Telephone is not included in the list')
+      end
       it 'userが紐付いていないと保存できないこと' do
         @order_purchase.user_id = nil
         @order_purchase.valid?
