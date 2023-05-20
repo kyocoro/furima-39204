@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :order_purchase do
-    cardnumber { '1234123412341234' }
-    expiration_month { '12' }
-    expiration_year { '30'}
-    securitycode { '111' }
+    cardnumber {4242424242424242}
+    expiration {"12/25"}
+    securitycode{123}
+    token {"tok_abcdefghijk00000000000000000"}
     postcode { '123-4567' }
     region_id { 3 }
     municipalities { '中央区' }
