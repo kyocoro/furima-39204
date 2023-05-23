@@ -31,3 +31,10 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    attributes:
+      user:
+        nickname: ニックネーム
+      tweet:
+        text: テキスト
+        image: 画像
