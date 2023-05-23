@@ -71,7 +71,7 @@ RSpec.describe OrderPurchase, type: :model do
       it 'userが紐付いていないと保存できないこと' do
         @order_purchase.user_id = nil
         @order_purchase.valid?
-        expect(@order_purchase.errors.full_messages).to include("User can't be blank")
+        expect(@order_purchase.errors.full_messages).to include("Userを入力してください")
       end
       it 'itemが紐付いていないと保存できないこと' do
         @order_purchase.item_id = nil
